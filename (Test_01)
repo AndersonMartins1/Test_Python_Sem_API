@@ -1,0 +1,103 @@
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from os import listdir, makedirs, path
+from tqdm import tqdm
+
+def traduzir_modelo(texto, modelo):
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(modelo)
+        model = AutoModelForSeq2SeqLM.from_pretrained(modelo)
+
+        input_ids = tokenizer.encode(f"translate English to Portuguese: {texto}", return_tensors="pt")
+        output = model.generate(input_ids, max_length=150, num_beams=2, length_penalty=0.8)
+        translated_text = tokenizer.decode(output[0], skip_special_tokens=True)
+        return translated_text
+    except Exception as e:
+        print(f"Erro durante a tradução: {e}")
+        return texto
+
+def extrair_texto(linha):
+    match = re.search(r';([^;]+);.*', linha)
+    return match.group(1) if match else None
+
+def extrair_variaveis(texto):
+    partes = []
+    while '§' in texto:
+        match = re.match(r'(.*?)(§[^§]+§!)(.*)', texto)
+        if match:
+            partes.extend(match.groups())
+            texto = partes.pop()  # Remover o último grupo processado
+    partes.append(texto)
+    return [item for item in partes if item]
+
+def traduzir_linha(linha, modelo):
+    texto_original = extrair_texto(linha)
+    if not texto_original:
+        return linha
+
+    texto = extrair_variaveis(texto_original)
+    texto_traduzido = ' '.join([txt if '§' in txt else traduzir_modelo(txt, modelo) for txt in texto])
+
+    if texto_original not in ['ENGLISH', 'INGLÊS']:
+        linha = linha.replace(texto_original, texto_traduzido)
+
+    return linha
+
+def traduzir_arquivo(entrada, saida, modelo):
+    print('#' * 100)
+    print(f'Começando tradução do arquivo {entrada} com o modelo {modelo}')
+    traduzido = ''
+
+    try:
+        with open(entrada, 'r', encoding='utf-8') as arquivo:
+            total_linhas = sum(1 for _ in arquivo)
+
+        with tqdm(total=total_linhas, desc="Progresso", unit="linha", position=0, leave=True) as pbar:
+            with open(entrada, 'r', encoding='utf-8') as arquivo:
+                with open(saida, 'w', encoding='utf-8') as arquivo_saida:
+                    for linha in arquivo:
+                        linha_traduzida = traduzir_linha(linha, modelo)
+                        traduzido += linha_traduzida
+                        arquivo_saida.write(linha_traduzida)
+                        pbar.update(1)
+
+        print(f'\nTradução concluída para {saida} com o modelo {modelo}\n')
+
+    except FileNotFoundError:
+        print(f"Erro: O arquivo {entrada} não foi encontrado.")
+        return False
+    except Exception as e:
+        print(f"\nErro durante a tradução do arquivo {entrada} com o modelo {modelo}: {e}\n")
+        return False
+
+    return True
+
+def traduzir_todos_arquivos(diretorio_entrada='traduzir', diretorio_saida='traduzido', modelo='t5-base', extensao='txt'):
+    arquivos_entrada = [arquivo for arquivo in listdir(diretorio_entrada) if arquivo.endswith(f'.{extensao}')]
+
+    if not arquivos_entrada:
+        print(f"Nenhum arquivo encontrado com a extensão {extensao} para traduzir.")
+        return
+
+    # Verificar se o modelo escolhido é válido
+    modelos_disponiveis = AutoTokenizer.from_pretrained(modelo, use_fast=False, verbose=False)
+    if modelo not in modelos_disponiveis:
+        print(f"Erro: O modelo {modelo} não está disponível. Escolha um modelo válido.")
+        return
+
+    # Criar diretório 'traduzido' se não existir
+    makedirs(diretorio_saida, exist_ok=True)
+
+    traducoes_bem_sucedidas = 0
+    for nome_arquivo in arquivos_entrada:
+        caminho_entrada = path.join(diretorio_entrada, nome_arquivo)
+        caminho_saida = path.join(diretorio_saida, nome_arquivo)
+        sucesso = traduzir_arquivo(caminho_entrada, caminho_saida, modelo)
+        traducoes_bem_sucedidas += sucesso
+
+    print('\nProcessamento concluído. Estatísticas:')
+    print(f'Arquivos processados: {len(arquivos_entrada)}')
+    print(f'Arquivos traduzidos com sucesso: {traducoes_bem_sucedidas}')
+    print(f'Arquivos com erro: {len(arquivos_entrada) - traducoes_bem_sucedidas}')
+
+# Executar tradução para todos os arquivos em 'traduzir/' e salvar em 'traduzido/' usando o modelo 't5-base' e extensão 'txt'
+traduzir_todos_arquivos(modelo='t5-base', extensao='txt')
