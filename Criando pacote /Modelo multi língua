@@ -1,0 +1,46 @@
+Escolha modelos multilíngues: Alguns modelos, como 'mT5', são projetados para serem multilíngues, cobrindo uma ampla variedade de idiomas. Trocar o modelo para um desses pode melhorar a tradução para mais línguas.
+
+Aprimore o tokenizador: Em alguns casos, ajustar o tokenizador pode melhorar a qualidade da tradução. Pode ser necessário um tokenizador específico para determinados idiomas ou scripts.
+
+Treine modelos específicos: Se os arquivos de jogos contêm vocabulário técnico específico ou termos únicos, considerar treinar um modelo específico para esses casos pode ser benéfico.
+
+Aqui está uma modificação no código para permitir que você escolha um modelo multilíngue:
+# tradutor_jogos/tradutor/core.py
+import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from tqdm import tqdm
+from .preprocessing import extract_text, extract_variables
+from .translation import translate_text, translate_line, translate_file
+
+def translate_all_files(input_dir='traduzir', output_dir='traduzido', model='facebook/m2m100_418M', target_language='pt', extension='txt', num_workers=2):
+    try:
+        input_files = [file for file in os.listdir(input_dir) if file.endswith(f'.{extension}')]
+
+        if not input_files:
+            raise FileNotFoundError(f"No files found with the extension {extension} to translate.")
+
+        os.makedirs(output_dir, exist_ok=True)
+
+        with ThreadPoolExecutor(max_workers=num_workers) as executor, tqdm(total=len(input_files), desc="Progress", unit="file", position=0, leave=True) as pbar:
+            futures = [executor.submit(translate_file, os.path.join(input_dir, input_file), os.path.join(output_dir, input_file), model, target_language) for input_file in input_files]
+
+            for future in as_completed(futures):
+                try:
+                    success = future.result()
+                    if success:
+                        pbar.update(1)
+                except Exception as e:
+                    print(f"Error during translation: {e}")
+
+        print('\nProcessing completed. Statistics:')
+        print(f'Files processed: {len(input_files)}')
+
+    except FileNotFoundError as e:
+        print(f"Error: {e}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+
+
+
+
+//Agora, o código usa o modelo 'facebook/m2m100_418M', que é um modelo multilíngue, cobrindo uma variedade de idiomas. Lembre-se de que, embora modelos multilíngues sejam convenientes, eles podem não ser tão precisos quanto modelos treinados especificamente para um idioma. Experimente e ajuste conforme necessário para atender às suas necessidades específicas.
