@@ -1,0 +1,97 @@
+Escolha do Modo:
+
+Ao executar o script com a opção --interactive, o usuário é recebido com uma saudação e deve escolher entre dois modos: "all" (traduzir todos os arquivos) ou "single" (traduzir apenas um arquivo específico).
+Configuração Interativa:
+
+Se o usuário escolher "all", o script coleta informações sobre o diretório de entrada, diretório de saída, modelo, tokenizador, idioma-alvo, extensão de arquivo, número de trabalhadores paralelos e se o modo verbose está ativado.
+Se o usuário escolher "single", o script coleta informações sobre o caminho do arquivo de entrada, caminho do arquivo de saída, modelo, tokenizador, idioma-alvo e se o modo verbose está ativado.
+Resumo da Configuração:
+
+O script exibe um resumo das configurações escolhidas pelo usuário.
+Confirmação ou Aborto:
+
+O usuário é solicitado a confirmar se deseja prosseguir com a tradução baseado nas configurações apresentadas.
+Se a confirmação for negativa, o script é encerrado.
+Execução da Tradução:
+
+Com base nas escolhas do usuário, o script chama a função adequada para traduzir todos os arquivos (translate_all_files) ou apenas um arquivo específico (translate_file).
+Feedback Visual e de Log:
+
+O script fornece feedback visual durante a execução, informando o usuário sobre o início e a conclusão bem-sucedida do processo.
+As mensagens são registradas em um arquivo de log chamado translation_log.txt.
+Tratamento de Erros:
+
+Se ocorrer um erro durante a execução, o script registra informações detalhadas no log e fornece mensagens de erro claras ao usuário.
+Essas melhorias tornam o script mais interativo e flexível, permitindo ao usuário escolher entre modos de tradução e fornecer informações específicas com base em suas necessidades. O modo interativo facilita a personalização das configurações de tradução. 
+
+# tradutor_jogos/translate_games.py
+import argparse
+import logging
+from tradutor_jogos.tradutor import translate_all_files, translate_file
+
+def setup_logging():
+    logging.basicConfig(
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        level=logging.INFO,
+        filename='translation_log.txt'
+    )
+
+def interactive_setup():
+    print("Welcome to the Game Text Translator!")
+    mode = input("Choose translation mode (all/single): ").lower()
+    if mode == "all":
+        input_dir = input("Enter the input directory (default: traduzir): ") or "traduzir"
+        output_dir = input("Enter the output directory (default: traduzido): ") or "traduzido"
+        model = input("Enter the model name (default: facebook/m2m100_418M): ") or "facebook/m2m100_418M"
+        tokenizer = input("Enter the tokenizer name (press Enter to use the model's default tokenizer): ")
+        target_language = input("Enter the target language (default: pt): ") or "pt"
+        extension = input("Enter the file extension (default: txt): ") or "txt"
+        num_workers = int(input("Enter the number of parallel workers (default: 2): ") or 2)
+        verbose = input("Enable verbose mode? (yes/no, default: no): ").lower() == "yes"
+        
+        return "all", input_dir, output_dir, model, tokenizer, target_language, extension, num_workers, verbose
+    elif mode == "single":
+        input_file = input("Enter the input file path: ")
+        output_file = input("Enter the output file path: ")
+        model = input("Enter the model name (default: facebook/m2m100_418M): ") or "facebook/m2m100_418M"
+        tokenizer = input("Enter the tokenizer name (press Enter to use the model's default tokenizer): ")
+        target_language = input("Enter the target language (default: pt): ") or "pt"
+        verbose = input("Enable verbose mode? (yes/no, default: no): ").lower() == "yes"
+        
+        return "single", input_file, output_file, model, tokenizer, target_language, verbose
+    else:
+        print("Invalid mode. Please choose 'all' or 'single'.")
+        exit()
+
+def main():
+    parser = argparse.ArgumentParser(description="Translate game text files.")
+    parser.add_argument("--interactive", action="store_true", help="Enable interactive mode for configuring translation options.")
+    args = parser.parse_args()
+
+    if args.interactive:
+        mode, *params = interactive_setup()
+    else:
+        print("Please specify the --interactive flag to use interactive mode.")
+        exit()
+
+    setup_logging()
+    logging.info("Starting translation process...")
+
+    try:
+        if mode == "all":
+            translate_all_files(*params)
+        elif mode == "single":
+            translate_file(*params)
+        logging.info("Translation process completed successfully.")
+        print("Translation process completed successfully.")
+    except FileNotFoundError as e:
+        logging.error(f"Error: {e}")
+        logging.info("Translation process failed.")
+        print(f"Error: {e}")
+    except Exception as e:
+        logging.error(f"Error during translation: {e}")
+        logging.info("Translation process failed.")
+        print(f"Error during translation: {e}")
+
+if __name__ == "__main__":
+    main()
