@@ -1,0 +1,28 @@
+tradutor_jogos/
+│
+├── __init__.py
+│
+└── tradutor.py
+# tradutor_jogos/tradutor.py
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from os import listdir, makedirs, path
+from tqdm import tqdm
+import re
+
+def traduzir_modelo(texto, modelo):
+    # ... (o restante do código da função traduzir_modelo)
+
+def extrair_texto(linha):
+    # ... (o restante do código da função extrair_texto)
+
+def extrair_variaveis(texto):
+    # ... (o restante do código da função extrair_variaveis)
+
+def traduzir_linha(linha, modelo):
+    # ... (o restante do código da função traduzir_linha)
+
+def traduzir_arquivo(entrada, saida, modelo):
+    # ... (o restante do código da função traduzir_arquivo)
+
+def traduzir_todos_arquivos(diretorio_entrada='traduzir', diretorio_saida='traduzido', modelo='t5-base', extensao='txt'):
+    # ... (o restante do código da função traduzir_todos_arquivos)
