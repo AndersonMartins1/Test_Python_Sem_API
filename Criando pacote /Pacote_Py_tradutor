@@ -1,14 +1,20 @@
-Crie um novo diretório chamado tradutor_jogos.
-Dentro desse diretório, crie um arquivo chamado __init__.py. Isso tornará o diretório um pacote Python.
-Mova todas as funções do seu código para um arquivo chamado tradutor.py dentro do diretório tradutor_jogos.
-Remova o bloco de código final que executa a tradução (últimas linhas do código) do arquivo tradutor.py.
+Criar o diretório e o arquivo de inicialização:
+
+Crie um diretório chamado tradutor_jogos.
+Dentro desse diretório, crie um arquivo chamado tradutor.py.
+Conteúdo do arquivo tradutor.py:
+
+Coloque todas as funções relacionadas à tradução de jogos dentro do arquivo tradutor.py.
+Remova o bloco final de código que executa a tradução, já que você especificou que não quer esse bloco.
+
 
 tradutor_jogos/
 │
-├── __init__.py
-│
 └── tradutor.py
-# tradutor_jogos/tradutor.py
+
+Aqui está um exemplo básico de como tradutor.py poderia ser organizado:
+
+# Conteúdo do arquivo tradutor.py
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 from os import listdir, makedirs, path
 from tqdm import tqdm
@@ -31,3 +37,8 @@ def traduzir_arquivo(entrada, saida, modelo):
 
 def traduzir_todos_arquivos(diretorio_entrada='traduzir', diretorio_saida='traduzido', modelo='t5-base', extensao='txt'):
     # ... (o restante do código da função traduzir_todos_arquivos)
+
+
+Esta estrutura é mais simples e mantém todas as funções relacionadas à tradução de jogos em um único arquivo, tradutor.py, dentro do diretório tradutor_jogos.
+
+
