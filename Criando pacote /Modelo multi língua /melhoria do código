@@ -1,10 +1,13 @@
-Escolha modelos multilíngues: Alguns modelos, como 'mT5', são projetados para serem multilíngues, cobrindo uma ampla variedade de idiomas. Trocar o modelo para um desses pode melhorar a tradução para mais línguas.
+Neste código:
 
-Aprimore o tokenizador: Em alguns casos, ajustar o tokenizador pode melhorar a qualidade da tradução. Pode ser necessário um tokenizador específico para determinados idiomas ou scripts.
+Adicionei um parâmetro model para permitir que você escolha o modelo de tradução. Por padrão, é usado o modelo 'facebook/m2m100_418M', que é multilíngue.
+Incluí um parâmetro target_language para definir o idioma de destino da tradução. Por padrão, é 'pt' para português.
+Ajustei a função translate_all_files para usar esses parâmetros ao chamar a função de tradução de arquivos.
+Incluí um comentário sobre a escolha de modelos multilíngues e a importância de ajustar e experimentar conforme necessário.
+Você pode ajustar os valores padrão dos parâmetros model e target_language de acordo com suas preferências e necessidades específicas.
 
-Treine modelos específicos: Se os arquivos de jogos contêm vocabulário técnico específico ou termos únicos, considerar treinar um modelo específico para esses casos pode ser benéfico.
+Aqui está uma melhoria no código que permite escolher um modelo multilíngue e inclui algumas sugestões adicionais: 
 
-Aqui está uma modificação no código para permitir que você escolha um modelo multilíngue:
 # tradutor_jogos/tradutor/core.py
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -39,8 +42,3 @@ def translate_all_files(input_dir='traduzir', output_dir='traduzido', model='fac
         print(f"Error: {e}")
     except Exception as e:
         print(f"Unexpected error: {e}")
-
-
-
-
-//Agora, o código usa o modelo 'facebook/m2m100_418M', que é um modelo multilíngue, cobrindo uma variedade de idiomas. Lembre-se de que, embora modelos multilíngues sejam convenientes, eles podem não ser tão precisos quanto modelos treinados especificamente para um idioma. Experimente e ajuste conforme necessário para atender às suas necessidades específicas.
