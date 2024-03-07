@@ -1,33 +1,28 @@
-Escolha do Modo:
+Aqui estão algumas sugestões para tornar o código ainda mais claro e robusto:
 
-Ao executar o script com a opção --interactive, o usuário é recebido com uma saudação e deve escolher entre dois modos: "all" (traduzir todos os arquivos) ou "single" (traduzir apenas um arquivo específico).
-Configuração Interativa:
+Divisão em Módulos:
 
-Se o usuário escolher "all", o script coleta informações sobre o diretório de entrada, diretório de saída, modelo, tokenizador, idioma-alvo, extensão de arquivo, número de trabalhadores paralelos e se o modo verbose está ativado.
-Se o usuário escolher "single", o script coleta informações sobre o caminho do arquivo de entrada, caminho do arquivo de saída, modelo, tokenizador, idioma-alvo e se o modo verbose está ativado.
-Resumo da Configuração:
+Considere dividir o código em módulos mais pequenos e coesos para facilitar a manutenção e a compreensão. Por exemplo, você pode criar um módulo separado para lidar com a configuração interativa, outro para lidar com a execução da tradução e outro para lidar com o logging.
+Validação de Entradas:
 
-O script exibe um resumo das configurações escolhidas pelo usuário.
-Confirmação ou Aborto:
+Adicione mais validações de entrada para garantir que o usuário forneça valores válidos para os parâmetros. Por exemplo, verifique se os diretórios de entrada e saída existem, se os modelos e tokenizadores especificados são válidos, etc.
+Melhoria da Experiência do Usuário:
 
-O usuário é solicitado a confirmar se deseja prosseguir com a tradução baseado nas configurações apresentadas.
-Se a confirmação for negativa, o script é encerrado.
-Execução da Tradução:
+Forneça mensagens de erro mais detalhadas e instruções claras ao usuário em caso de entradas inválidas ou erros durante a execução.
+Considere adicionar opções de ajuda (--help) para fornecer ao usuário informações sobre como usar o script e as opções disponíveis.
+Tratamento de Exceções Específicas:
 
-Com base nas escolhas do usuário, o script chama a função adequada para traduzir todos os arquivos (translate_all_files) ou apenas um arquivo específico (translate_file).
-Feedback Visual e de Log:
+Em vez de capturar todas as exceções (except Exception), tente capturar exceções específicas sempre que possível para lidar com elas de forma mais adequada.
+Refatoração de Código:
 
-O script fornece feedback visual durante a execução, informando o usuário sobre o início e a conclusão bem-sucedida do processo.
-As mensagens são registradas em um arquivo de log chamado translation_log.txt.
-Tratamento de Erros:
+Procure oportunidades de refatorar o código para torná-lo mais modular e legível. Por exemplo, você pode mover a configuração interativa para uma função separada e reutilizá-la em diferentes partes do script.
+Aqui está uma versão refinada do seu código, incorporando algumas dessas sugestões:
 
-Se ocorrer um erro durante a execução, o script registra informações detalhadas no log e fornece mensagens de erro claras ao usuário.
-Essas melhorias tornam o script mais interativo e flexível, permitindo ao usuário escolher entre modos de tradução e fornecer informações específicas com base em suas necessidades. O modo interativo facilita a personalização das configurações de tradução. 
 
 # tradutor_jogos/translate_games.py
 import argparse
 import logging
-from tradutor_jogos.tradutor import translate_all_files, translate_file
+from .translator import translate_all_files, translate_file
 
 def setup_logging():
     logging.basicConfig(
@@ -93,5 +88,4 @@ def main():
         logging.info("Translation process failed.")
         print(f"Error during translation: {e}")
 
-if __name__ == "__main__":
-    main()
+if __name__ == "__
