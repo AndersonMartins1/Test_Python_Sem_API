@@ -145,3 +145,4 @@ Com base nos resultados obtidos, algumas recomendações para futuras pesquisas 
 
 4. Explorar abordagens de otimização de recursos para reduzir ainda mais o consumo de CPU, memória e GPU durante o processo de tradução, especialmente para modelos que exigem recursos computacionais mais intensivos.
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c5ad4ec7-af59-4559-932c-dc4bc52b5e22/deploy-status)](https://app.netlify.com/sites/andersonmartins1/deploys)
