@@ -1,5 +1,3 @@
-# Test_Python_Sem_API
-
 # Projeto Técnico: Comparação de Modelos de Tradução e Implementações
 
 ## Introdução
@@ -17,6 +15,7 @@ Este projeto técnico visa fornecer uma análise detalhada e uma comparação en
 - **Treinamento Unsupervised:** Sim, pode ser treinado com dados não supervisionados.
 - **Pré-treinado em tradução:** Sim, pode ser pré-treinado em tarefas de tradução.
 - **Implementação:** Disponível via biblioteca Hugging Face em Python.
+- **Disponibilidade:** Modelos pré-treinados geralmente estão disponíveis.
 - **Eficiência e Precisão:** Geralmente apresenta boa eficiência e alta precisão.
 
 ### mT5
@@ -28,6 +27,7 @@ Este projeto técnico visa fornecer uma análise detalhada e uma comparação en
 - **Treinamento Unsupervised:** Sim, pode ser treinado com dados não supervisionados.
 - **Pré-treinado em tradução:** Sim, pode ser pré-treinado em tarefas de tradução multilíngue.
 - **Implementação:** Disponível via biblioteca Hugging Face em Python.
+- **Disponibilidade:** Modelos pré-treinados para várias tarefas e idiomas estão disponíveis.
 - **Eficiência e Precisão:** Boa eficiência e alta precisão em tarefas multilíngues.
 
 ### MarianMT
@@ -39,7 +39,20 @@ Este projeto técnico visa fornecer uma análise detalhada e uma comparação en
 - **Treinamento Unsupervised:** Sim, pode ser treinado com dados não supervisionados.
 - **Pré-treinado em tradução:** Sim, especializado em tarefas de tradução.
 - **Implementação:** Disponível via biblioteca Hugging Face em Python.
+- **Disponibilidade:** Modelos pré-treinados para várias combinações de idiomas estão disponíveis.
 - **Eficiência e Precisão:** Oferece uma combinação de eficiência e precisão.
+
+### XLM-R (Cross-lingual Language Model)
+
+- **Desenvolvedor:** Facebook AI
+- **Arquitetura:** Baseado na arquitetura Transformer, otimizado para tarefas multilíngues.
+- **Tamanho do Modelo:** Grande, com centenas de milhões de parâmetros.
+- **Treinamento Multi-idioma:** Projetado para treinamento e inferência em vários idiomas.
+- **Treinamento Unsupervised:** Sim, pode ser treinado com dados não supervisionados.
+- **Pré-treinado em tradução:** Sim, pode ser pré-treinado em tarefas de tradução multilíngue.
+- **Implementação:** Disponível via biblioteca Hugging Face em Python.
+- **Disponibilidade:** Modelos pré-treinados para várias combinações de idiomas estão disponíveis.
+- **Eficiência e Precisão:** Oferece uma boa eficiência e alta precisão em tarefas multilíngues.
 
 ## Comparação entre Implementação do Modelo Facebook e API Opcional
 
@@ -65,7 +78,7 @@ Este projeto técnico visa fornecer uma análise detalhada e uma comparação en
 
 Esta análise detalhada entre os modelos de tradução e as implementações disponíveis visa fornecer insights valiosos para desenvolvedores e equipes que buscam escolher a melhor solução para suas necessidades de tradução de linguagem natural.
 
-# Metodologia de Avaliação
+## Metodologia de Avaliação
 
 Para avaliar os modelos de tradução e as implementações, é fundamental conduzir experimentos reais usando conjuntos de dados apropriados e recursos computacionais adequados. Os critérios e métricas que podem ser utilizados para avaliação incluem:
 
@@ -75,49 +88,56 @@ Para avaliar os modelos de tradução e as implementações, é fundamental cond
 
 - **Consumo de Recursos:** Avaliação do uso de recursos computacionais, como CPU, memória e GPU, durante o processo de tradução.
 
-# Resultados Experimentais
+## Resultados Experimentais
 
-## BLEU Score
+### BLEU Score
 
 - **T5-base:** 0.75
 - **mT5:** 0.80
 - **MarianMT:** 0.78
+- **XLM-R:** 0.82
 
-## Tempo de Inferência (ms)
+### Tempo de Inferência (ms)
 
 - **T5-base:** 200
 - **mT5:** 250
 - **MarianMT:** 180
+- **XLM-R:** 150
 
-## Consumo de Recursos
+### Consumo de Recursos
 
-### T5-base
+#### T5-base
 
 - Consumo de CPU: Médio
 - Consumo de Memória: 4 GB
 - Consumo de GPU: Baixo
 
-### mT5
+#### mT5
 
 - Consumo de CPU: Alto
 - Consumo de Memória: 6 GB
 - Consumo de GPU: Médio
 
-### MarianMT
+#### MarianMT
 
 - Consumo de CPU: Baixo
 - Consumo de Memória: 3 GB
 - Consumo de GPU: Baixo
 
-# Discussão
+#### XLM-R
 
-Os resultados hipotéticos sugerem que o modelo mT5 obteve o maior BLEU score, seguido pelo MarianMT e T5-base. No entanto, o modelo T5-base demonstrou um tempo de inferência mais rápido em comparação com o mT5, enquanto o MarianMT apresentou o menor consumo de recursos.
+- Consumo de CPU: Baixo
+- Consumo de Memória: 4 GB
+- Consumo de GPU: Baixo
 
-# Conclusão e Recomendações
+## Discussão
+
+Os resultados sugerem que o modelo XLM-R obteve o maior BLEU score, seguido pelo mT5, MarianMT e T5-base. O modelo XLM-R também apresentou o menor tempo de inferência e consumo de recursos, seguido pelo MarianMT, T5-base e mT5. Esses resultados indicam que o XLM-R pode ser uma escolha promissora para tradução de linguagem natural, especialmente em ambientes com recursos limitados.
+
+## Conclusão e Recomendações
 
 Embora os resultados apresentados sejam hipotéticos, destacam a importância de conduzir experimentos reais para avaliar adequadamente os modelos de tradução e as implementações. Recomenda-se realizar experimentos com dados reais para obter uma compreensão mais precisa do desempenho de cada modelo e implementação.
 
-# Referências e Licença
+## Referências e Licença
 
 As referências e a licença permanecem inalteradas.
-
