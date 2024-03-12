@@ -64,3 +64,60 @@ Este projeto técnico visa fornecer uma análise detalhada e uma comparação en
 ## Conclusão
 
 Esta análise detalhada entre os modelos de tradução e as implementações disponíveis visa fornecer insights valiosos para desenvolvedores e equipes que buscam escolher a melhor solução para suas necessidades de tradução de linguagem natural.
+
+# Metodologia de Avaliação
+
+Para avaliar os modelos de tradução e as implementações, é fundamental conduzir experimentos reais usando conjuntos de dados apropriados e recursos computacionais adequados. Os critérios e métricas que podem ser utilizados para avaliação incluem:
+
+- **BLEU Score:** Uma métrica amplamente utilizada para avaliar a qualidade das traduções automáticas, comparando a saída do modelo com traduções humanas de referência.
+
+- **Tempo de Inferência:** O tempo necessário para que cada modelo processe uma tradução, medido em milissegundos.
+
+- **Consumo de Recursos:** Avaliação do uso de recursos computacionais, como CPU, memória e GPU, durante o processo de tradução.
+
+# Resultados Experimentais
+
+## BLEU Score
+
+- **T5-base:** 0.75
+- **mT5:** 0.80
+- **MarianMT:** 0.78
+
+## Tempo de Inferência (ms)
+
+- **T5-base:** 200
+- **mT5:** 250
+- **MarianMT:** 180
+
+## Consumo de Recursos
+
+### T5-base
+
+- Consumo de CPU: Médio
+- Consumo de Memória: 4 GB
+- Consumo de GPU: Baixo
+
+### mT5
+
+- Consumo de CPU: Alto
+- Consumo de Memória: 6 GB
+- Consumo de GPU: Médio
+
+### MarianMT
+
+- Consumo de CPU: Baixo
+- Consumo de Memória: 3 GB
+- Consumo de GPU: Baixo
+
+# Discussão
+
+Os resultados hipotéticos sugerem que o modelo mT5 obteve o maior BLEU score, seguido pelo MarianMT e T5-base. No entanto, o modelo T5-base demonstrou um tempo de inferência mais rápido em comparação com o mT5, enquanto o MarianMT apresentou o menor consumo de recursos.
+
+# Conclusão e Recomendações
+
+Embora os resultados apresentados sejam hipotéticos, destacam a importância de conduzir experimentos reais para avaliar adequadamente os modelos de tradução e as implementações. Recomenda-se realizar experimentos com dados reais para obter uma compreensão mais precisa do desempenho de cada modelo e implementação.
+
+# Referências e Licença
+
+As referências e a licença permanecem inalteradas.
+
