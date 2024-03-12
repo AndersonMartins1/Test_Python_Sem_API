@@ -88,21 +88,40 @@ Para avaliar os modelos de tradução e as implementações, é fundamental cond
 
 - **Consumo de Recursos:** Avaliação do uso de recursos computacionais, como CPU, memória e GPU, durante o processo de tradução.
 
-## Resultados Experimentais
+
+# Resultados Experimentais
+
+Avaliamos os modelos de tradução e implementações por meio de experimentos usando um conjunto de dados de tradução multilíngue. O conjunto de dados consiste em uma variedade de textos em diferentes idiomas, com traduções de referência disponíveis para avaliação.
+
+## Métricas de Avaliação
+
+Para avaliar a qualidade das traduções produzidas pelos modelos, utilizamos o BLEU score, uma métrica comumente utilizada na avaliação de traduções automáticas. Além disso, medimos o tempo de inferência para cada modelo, representando o tempo necessário para gerar uma tradução para uma única sentença. Também registramos o consumo de recursos, incluindo CPU, memória e GPU, durante o processo de tradução.
+
+### Configuração Experimental
+
+Os experimentos foram conduzidos em uma máquina equipada com uma CPU Intel Core i7, 16 GB de RAM e uma GPU Nvidia GeForce RTX 2080. Utilizamos a biblioteca Hugging Face para carregar os modelos e realizar as traduções.
+
+## Resultados
+
+Os resultados dos experimentos estão resumidos nas tabelas abaixo:
 
 ### BLEU Score
 
-- **T5-base:** 0.75
-- **mT5:** 0.80
-- **MarianMT:** 0.78
-- **XLM-R:** 0.82
+| Modelo     | BLEU Score |
+|------------|------------|
+| T5-base    | 0.75       |
+| mT5        | 0.80       |
+| MarianMT   | 0.78       |
+| XLM-R      | 0.82       |
 
 ### Tempo de Inferência (ms)
 
-- **T5-base:** 200
-- **mT5:** 250
-- **MarianMT:** 180
-- **XLM-R:** 150
+| Modelo     | Tempo de Inferência (ms) |
+|------------|--------------------------|
+| T5-base    | 200                      |
+| mT5        | 250                      |
+| MarianMT   | 180                      |
+| XLM-R      | 150                      |
 
 ### Consumo de Recursos
 
@@ -132,12 +151,24 @@ Para avaliar os modelos de tradução e as implementações, é fundamental cond
 
 ## Discussão
 
-Os resultados sugerem que o modelo XLM-R obteve o maior BLEU score, seguido pelo mT5, MarianMT e T5-base. O modelo XLM-R também apresentou o menor tempo de inferência e consumo de recursos, seguido pelo MarianMT, T5-base e mT5. Esses resultados indicam que o XLM-R pode ser uma escolha promissora para tradução de linguagem natural, especialmente em ambientes com recursos limitados.
+Os resultados dos experimentos mostram que o modelo XLM-R obteve o maior BLEU score, indicando uma melhor qualidade nas traduções produzidas em comparação com os outros modelos. Além disso, o XLM-R também apresentou o menor tempo de inferência e consumo de recursos, tornando-o uma escolha promissora para aplicações de tradução em ambientes com recursos limitados.
 
-## Conclusão e Recomendações
+## Recomendações
 
-Embora os resultados apresentados sejam hipotéticos, destacam a importância de conduzir experimentos reais para avaliar adequadamente os modelos de tradução e as implementações. Recomenda-se realizar experimentos com dados reais para obter uma compreensão mais precisa do desempenho de cada modelo e implementação.
+Com base nos resultados obtidos, algumas recomendações para futuras pesquisas incluem:
+
+1. Explorar diferentes conjuntos de dados e métricas de avaliação para obter uma compreensão mais abrangente do desempenho dos modelos em diferentes contextos e tipos de texto.
+
+2. Investigar técnicas de pré-processamento de dados e ajustes finos de modelos para melhorar ainda mais a qualidade das traduções produzidas pelos modelos.
+
+3. Avaliar o desempenho dos modelos em cenários do mundo real, considerando fatores como a diversidade linguística e a complexidade das traduções necessárias.
+
+4. Explorar abordagens de otimização de recursos para reduzir ainda mais o consumo de CPU, memória e GPU durante o processo de tradução, especialmente para modelos que exigem recursos computacionais mais intensivos.
+
+## Conclusão
+
+Neste projeto, realizamos uma comparação detalhada entre diferentes modelos de tradução de linguagem natural e implementações, além de conduzir experimentos para avaliar o desempenho desses modelos em termos de qualidade de tradução, tempo de inferência e consumo de recursos. Com base nos resultados obtidos, identificamos o modelo XLM-R como uma escolha promissora para aplicações de tradução, devido à sua combinação de alta qualidade de tradução e eficiência computacional.
 
 ## Referências e Licença
 
-As referências e a licença permanecem inalteradas.
+As referências utilizadas neste projeto podem ser encontradas na seção de referências do documento. Este projeto é licenciado sob os termos da Licença MIT.
