@@ -1,4 +1,4 @@
-Neste código.md
+Neste código:
 
 Adicionei um parâmetro model para permitir que você escolha o modelo de tradução. Por padrão, é usado o modelo 'facebook/m2m100_418M', que é multilíngue.
 Incluí um parâmetro target_language para definir o idioma de destino da tradução. Por padrão, é 'pt' para português.
